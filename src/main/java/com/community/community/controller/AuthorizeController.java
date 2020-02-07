@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
@@ -33,7 +34,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callBack(@RequestParam("code") String code,
                            @RequestParam("state") String state,
-                            HttpServletRequest request) {
+                           HttpServletResponse response) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -42,25 +43,34 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirectUri);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GitHubUser userInfo = githubProvider.getUserInfo(accessToken);
-        if (userInfo !=null){
-            User user=new User();
-            user.setName(userInfo.getName());
-            user.setToken(UUID.randomUUID().toString());
-            user.setGmtCreate(String.valueOf(System.currentTimeMillis()));
-            user.setGmtModifted(user.getGmtCreate());
-            user.setAccountId(userInfo.getId().toString());
-            //登录成功，将信息存入到数据库和写cookie和session
-            userMapper.insertUser(user);
-            request.getSession().setAttribute("user",userInfo);
-            return "redirect:/";
-        }else {
+        if (userInfo != null) {
+            User user = new User();
+            String token = UUID.randomUUID().toString();
+            if (userMapper.selectByAccountId(userInfo.getId())) {
+                user.setToken(token);
+                user.setAccountId(userInfo.getId().toString());
+                userMapper.updateUserByAccountId(user);
+                response.addCookie(new Cookie("token", token));
+                return "redirect:/";
+            } else {
+                user.setName(userInfo.getName());
+                user.setToken(token);
+                user.setGmtCreate(String.valueOf(System.currentTimeMillis()));
+                user.setGmtModifted(user.getGmtCreate());
+                user.setAccountId(userInfo.getId().toString());
+                //登录成功，将信息存入到数据库和写cookie和session
+                userMapper.insertUser(user);
+                response.addCookie(new Cookie("token", token));
+                return "redirect:/";
+            }
+        } else {
             return "redirect:/";
         }
     }
 
     @GetMapping("/getUser")
     @ResponseBody
-    public User getUserInfo(){
+    public User getUserInfo() {
         User user = userMapper.selectAllUser();
         System.out.println(user.getName());
         return user;
