@@ -1,0 +1,11 @@
+.main {
+    margin: 30px;
+    background-color: white;
+}
+.bodys{
+    background-color: #efefef;
+}
+.btn-success{
+    float: right;
+    margin-bottom: 15px;
+}
