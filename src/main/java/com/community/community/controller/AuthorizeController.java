@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +45,7 @@ public class AuthorizeController {
         if (userInfo != null) {
             User user = new User();
             String token = UUID.randomUUID().toString();
-            if (userMapper.selectByAccountId(userInfo.getId())) {
+            if (userMapper.selectByAccountId(userInfo.getId())!=null) {
                 user.setToken(token);
                 user.setAccountId(userInfo.getId().toString());
                 userMapper.updateUserByAccountId(user);
@@ -55,6 +54,7 @@ public class AuthorizeController {
             } else {
                 user.setName(userInfo.getName());
                 user.setToken(token);
+                user.setAvatarUrl(userInfo.getAvatar_url());
                 user.setGmtCreate(String.valueOf(System.currentTimeMillis()));
                 user.setGmtModifted(user.getGmtCreate());
                 user.setAccountId(userInfo.getId().toString());
@@ -66,13 +66,5 @@ public class AuthorizeController {
         } else {
             return "redirect:/";
         }
-    }
-
-    @GetMapping("/getUser")
-    @ResponseBody
-    public User getUserInfo() {
-        User user = userMapper.selectAllUser();
-        System.out.println(user.getName());
-        return user;
     }
 }

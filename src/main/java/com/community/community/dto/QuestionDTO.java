@@ -1,13 +1,10 @@
-package com.community.community.model;
+package com.community.community.dto;
 
+import com.community.community.model.User;
 import lombok.Data;
 
-import javax.persistence.Table;
-
-@Table(name = "question")
 @Data
-public class Question {
-
+public class QuestionDTO {
     /**
      * id
      */
@@ -29,7 +26,7 @@ public class Question {
     private String tag;
 
     /**
-     * 作者id
+     * 作者
      */
     private String userId;
 
@@ -46,11 +43,15 @@ public class Question {
     /**
      * 新增时间
      */
-    private String gmtCreate;
+    private Long gmtCreate;
 
     /**
      * 修改时间
      */
-    private String gmtModified;
+    private Long gmtModified;
 
+    /**
+     * 用户信息
+     */
+    private User user;
 }
