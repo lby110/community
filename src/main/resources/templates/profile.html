@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>码匠社区</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/community.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <script src="js/jQuery.js" type="application/javascript"></script>
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <title th:text="${headName}"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script src="/js/jQuery.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body class="bodys">
 <div th:insert="~{navigation :: copy}"></div>
@@ -32,24 +32,24 @@
             <nav aria-label="Page navigation" style="text-align: right">
                 <ul class="pagination">
                     <li>
-                        <a href="/?page=1" aria-label="Previous" th:if="${pageList.showFirstPage}">
+                        <a th:href="@{'/profile/'+${section}(page=1)}" aria-label="Previous" th:if="${pageList.showFirstPage}">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/(page=${pageList.page-1})}" aria-label="Previous" th:if="${pageList.showPrevious}">
+                        <a th:href="@{'/profile/'+${section}(page=${pageList.page-1})}" aria-label="Previous" th:if="${pageList.showPrevious}">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page : ${pageList.pages}" th:class="${page==pageList.page}?'active':''"><a
-                            th:href="@{/(page=${page})}" th:text="${page}"></a></li>
+                            th:href="@{'/profile/'+${section}(page=${page})}" th:text="${page}"></a></li>
                     <li>
-                        <a th:href="@{/(page=${pageList.page+1})}" th:if="${pageList.showNext}"  aria-label="Next">
+                        <a th:href="@{'/profile/'+${section}(page=${pageList.page+1})}" th:if="${pageList.showNext}"  aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/(page=${pageList.totalPage})}" th:if="${pageList.showEndPage}"  aria-label="Next">
+                        <a th:href="@{'/profile/'+${section}(page=${pageList.totalPage})}" th:if="${pageList.showEndPage}"  aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
@@ -57,7 +57,10 @@
             </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>问题发布指南</h3>
+            <div class="list-group list-group2">
+                <a href="/profile/questions"  th:class="${section=='questions'} ?'list-group-item active':'list-group-item'">我的问题</a>
+                <a href="/profile/repies"  th:class="${section=='repies'} ?'list-group-item active':'list-group-item'">最新回复<span class="badge">3</span></a>
+            </div>
         </div>
     </div>
 </div>

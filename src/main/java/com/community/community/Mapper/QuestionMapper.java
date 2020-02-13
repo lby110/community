@@ -19,4 +19,10 @@ public interface QuestionMapper {
 
     @Select("select count(1) from question")
     int count();
+
+    @Select("select count(1) from question where user_id=#{userId}")
+    int countByUserId(@Param("userId") Long userId);
+
+    @Select("select * from question where user_id=#{id} limit #{offSet},#{pageSize}")
+    List<Question> selectQuestionList(@Param("id") Long id,@Param("offSet") Integer offSet,@Param("pageSize") Integer pageSize);
 }
