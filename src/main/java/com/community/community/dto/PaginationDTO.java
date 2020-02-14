@@ -14,6 +14,8 @@ public class PaginationDTO {
 
     private List<QuestionDTO> questions;
 
+    private QuestionDTO questionDTO;
+
     /**
      * 是否有向前按钮
      */

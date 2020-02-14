@@ -22,7 +22,7 @@
                     <img class="media-object imgObject" th:src="${question.user.avatarUrl}">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <h4 class="media-heading"><a th:href="@{'/details/'+${question.id}}" th:text="${question.title}"></a></h4>
                     <span th:text="${question.description}"></span><br>
                     <span th:text="${question.likeCount}"></span>个评论 •
                     <span th:text="${question.viewCount}"></span>次浏览 •
@@ -32,24 +32,28 @@
             <nav aria-label="Page navigation" style="text-align: right">
                 <ul class="pagination">
                     <li>
-                        <a th:href="@{'/profile/'+${section}(page=1)}" aria-label="Previous" th:if="${pageList.showFirstPage}">
+                        <a th:href="@{'/profile/'+${section}(page=1)}" aria-label="Previous"
+                           th:if="${pageList.showFirstPage}">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{'/profile/'+${section}(page=${pageList.page-1})}" aria-label="Previous" th:if="${pageList.showPrevious}">
+                        <a th:href="@{'/profile/'+${section}(page=${pageList.page-1})}" aria-label="Previous"
+                           th:if="${pageList.showPrevious}">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page : ${pageList.pages}" th:class="${page==pageList.page}?'active':''"><a
                             th:href="@{'/profile/'+${section}(page=${page})}" th:text="${page}"></a></li>
                     <li>
-                        <a th:href="@{'/profile/'+${section}(page=${pageList.page+1})}" th:if="${pageList.showNext}"  aria-label="Next">
+                        <a th:href="@{'/profile/'+${section}(page=${pageList.page+1})}" th:if="${pageList.showNext}"
+                           aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{'/profile/'+${section}(page=${pageList.totalPage})}" th:if="${pageList.showEndPage}"  aria-label="Next">
+                        <a th:href="@{'/profile/'+${section}(page=${pageList.totalPage})}"
+                           th:if="${pageList.showEndPage}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
@@ -58,8 +62,10 @@
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="list-group list-group2">
-                <a href="/profile/questions"  th:class="${section=='questions'} ?'list-group-item active':'list-group-item'">我的问题</a>
-                <a href="/profile/repies"  th:class="${section=='repies'} ?'list-group-item active':'list-group-item'">最新回复<span class="badge">3</span></a>
+                <a href="/profile/questions"
+                   th:class="${section=='questions'} ?'list-group-item active':'list-group-item'">我的问题</a>
+                <a href="/profile/repies" th:class="${section=='repies'} ?'list-group-item active':'list-group-item'">最新回复<span
+                        class="badge">3</span></a>
             </div>
         </div>
     </div>

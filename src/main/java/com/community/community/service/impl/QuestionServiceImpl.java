@@ -56,11 +56,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     /**
      * 用户通过id查询自己提出的问题
+     *
      * @param id
      * @return
      */
     @Override
-    public PaginationDTO selectByUserId(Long id,Integer page,Integer pageSize) {
+    public PaginationDTO selectByUserId(Long id, Integer page, Integer pageSize) {
         PaginationDTO paginationDTO = new PaginationDTO();
         int totalCount = questionMapper.countByUserId(id);
         paginationDTO.setPaginationDTO(totalCount, page, pageSize);
@@ -71,7 +72,7 @@ public class QuestionServiceImpl implements QuestionService {
             page = paginationDTO.getTotalPage();
         }
         int offSet = pageSize * (page - 1);
-        List<Question> questions = questionMapper.selectQuestionList(id,offSet, pageSize);
+        List<Question> questions = questionMapper.selectQuestionList(id, offSet, pageSize);
         QuestionDTO questionDTO = null;
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : questions) {
@@ -84,5 +85,32 @@ public class QuestionServiceImpl implements QuestionService {
         }
         paginationDTO.setQuestions(questionDTOS);
         return paginationDTO;
+    }
+
+    /**
+     * 问题详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public QuestionDTO selectById(String id) {
+        QuestionDTO questionDTO=new QuestionDTO();
+        Question question = questionMapper.selectById(id);
+        User user = userMapper.selectByCreateUserId(question.getUserId());
+        BeanUtils.copyProperties(question, questionDTO);
+        questionDTO.setUser(user);
+        questionDTO.setGmtCreate(Long.valueOf(question.getGmtCreate()));
+        return questionDTO;
+    }
+
+    @Override
+    public void insertQuestion(Question question) {
+        questionMapper.insertQuestion(question);
+    }
+
+    @Override
+    public void updateQuestion(Question question) {
+        questionMapper.updateQuestion(question);
     }
 }
