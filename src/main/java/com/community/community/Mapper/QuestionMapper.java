@@ -1,6 +1,6 @@
 package com.community.community.Mapper;
 
-import com.community.community.model.Question;
+import com.community.community.model.sql.Question;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

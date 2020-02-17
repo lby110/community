@@ -1,7 +1,7 @@
 package com.community.community.interceptor;
 
 import com.community.community.Mapper.UserMapper;
-import com.community.community.model.User;
+import com.community.community.model.sql.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;

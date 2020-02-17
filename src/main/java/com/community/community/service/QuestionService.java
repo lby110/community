@@ -2,7 +2,7 @@ package com.community.community.service;
 
 import com.community.community.dto.PaginationDTO;
 import com.community.community.dto.QuestionDTO;
-import com.community.community.model.Question;
+import com.community.community.model.sql.Question;
 
 public interface QuestionService {
     PaginationDTO getQuestionList(Integer page, Integer pageSize);

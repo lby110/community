@@ -4,8 +4,10 @@ import com.community.community.Mapper.QuestionMapper;
 import com.community.community.Mapper.UserMapper;
 import com.community.community.dto.PaginationDTO;
 import com.community.community.dto.QuestionDTO;
-import com.community.community.model.Question;
-import com.community.community.model.User;
+import com.community.community.exception.CustomizeErrorCode;
+import com.community.community.exception.CustomizeException;
+import com.community.community.model.sql.Question;
+import com.community.community.model.sql.User;
 import com.community.community.service.QuestionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +99,9 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionDTO selectById(String id) {
         QuestionDTO questionDTO=new QuestionDTO();
         Question question = questionMapper.selectById(id);
+        if (question==null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FIND);
+        }
         User user = userMapper.selectByCreateUserId(question.getUserId());
         BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(user);

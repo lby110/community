@@ -3,7 +3,7 @@ package com.community.community.controller;
 import com.community.community.Mapper.UserMapper;
 import com.community.community.dto.AccessTokenDTO;
 import com.community.community.dto.GitHubUser;
-import com.community.community.model.User;
+import com.community.community.model.sql.User;
 import com.community.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

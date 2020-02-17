@@ -1,6 +1,6 @@
 package com.community.community.Mapper;
 
-import com.community.community.model.User;
+import com.community.community.model.sql.User;
 import org.apache.ibatis.annotations.*;
 
 @Mapper

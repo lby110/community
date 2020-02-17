@@ -1,8 +1,7 @@
 package com.community.community.controller;
 
-import com.community.community.Mapper.UserMapper;
 import com.community.community.dto.PaginationDTO;
-import com.community.community.model.User;
+import com.community.community.model.sql.User;
 import com.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
