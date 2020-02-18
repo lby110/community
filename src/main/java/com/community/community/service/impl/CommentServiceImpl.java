@@ -1,14 +1,15 @@
 package com.community.community.service.impl;
 
-import com.community.community.service.CommentService;
+import com.community.community.dao.CommentDao;
+import com.community.community.model.Comment;
+import com.community.community.service.ICommentService;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
-import com.community.community.model.Comment;
-import com.community.community.dao.CommentDao;
 
 @Service
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl implements ICommentService {
 
     @Resource
     private CommentDao commentDao;

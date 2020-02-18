@@ -1,6 +1,7 @@
 package com.community.community.service.impl;
 
 import com.community.community.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,7 +13,7 @@ import com.community.community.dao.UserDao;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    @Resource
+    @Autowired
     private UserDao userDao;
 
     public int insert(User pojo) {

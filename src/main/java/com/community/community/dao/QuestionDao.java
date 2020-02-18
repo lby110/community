@@ -15,4 +15,16 @@ public interface QuestionDao {
     int insertList(@Param("pojos") List<Question> pojo);
 
     int update(@Param("pojo") Question pojo);
+
+    int count();
+
+    List<Question> selectAllQuestion();
+
+    int countByUserId(@Param("id") Long id);
+
+    List<Question> selectQuestionList(@Param("id") Long id);
+
+    Question selectById(@Param("id") String id);
+
+    void addView(@Param("question") Question question);
 }

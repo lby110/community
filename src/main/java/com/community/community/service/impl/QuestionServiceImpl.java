@@ -1,7 +1,7 @@
 package com.community.community.service.impl;
 
-import com.community.community.Mapper.QuestionMapper;
-import com.community.community.Mapper.UserMapper;
+import com.community.community.dao.QuestionDao;
+import com.community.community.dao.UserDao;
 import com.community.community.dto.PaginationDTO;
 import com.community.community.dto.QuestionDTO;
 import com.community.community.exception.CustomizeErrorCode;
@@ -9,21 +9,24 @@ import com.community.community.exception.CustomizeException;
 import com.community.community.model.Question;
 import com.community.community.model.User;
 import com.community.community.service.IQuestionService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class QuestionServiceImpl implements IQuestionService {
 
-    @Autowired
-    private QuestionMapper questionMapper;
+    @Resource
+    private QuestionDao questionDao;
 
-    @Autowired
-    private UserMapper userMapper;
+    @Resource
+    private UserDao userDao;
+
+
 
     /**
      * 查询首页所有问题
@@ -32,7 +35,7 @@ public class QuestionServiceImpl implements IQuestionService {
      */
     public PaginationDTO getQuestionList(Integer page, Integer pageSize) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        int totalCount = questionMapper.count();
+        int totalCount = questionDao.count();
         paginationDTO.setPaginationDTO(totalCount, page, pageSize);
         if (page < 1) {
             page = 1;
@@ -41,12 +44,13 @@ public class QuestionServiceImpl implements IQuestionService {
             page = paginationDTO.getTotalPage();
         }
         int offSet = pageSize * (page - 1);
-        List<Question> questions = questionMapper.selectAllQuestion(offSet, pageSize);
+        PageHelper.startPage(offSet,pageSize);
+        List<Question> questions = questionDao.selectAllQuestion();
         QuestionDTO questionDTO = null;
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : questions) {
             questionDTO = new QuestionDTO();
-            User user = userMapper.selectByCreateUserId(question.getUserId());
+            User user = userDao.selectByCreateUserId(question.getUserId());
             BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTO.setGmtCreate(Long.valueOf(question.getGmtCreate()));
@@ -65,7 +69,7 @@ public class QuestionServiceImpl implements IQuestionService {
     @Override
     public PaginationDTO selectByUserId(Long id, Integer page, Integer pageSize) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        int totalCount = questionMapper.countByUserId(id);
+        int totalCount = questionDao.countByUserId(id);
         paginationDTO.setPaginationDTO(totalCount, page, pageSize);
         if (page < 1) {
             page = 1;
@@ -74,12 +78,13 @@ public class QuestionServiceImpl implements IQuestionService {
             page = paginationDTO.getTotalPage();
         }
         int offSet = pageSize * (page - 1);
-        List<Question> questions = questionMapper.selectQuestionList(id, offSet, pageSize);
+        PageHelper.startPage(offSet,pageSize);
+        List<Question> questions = questionDao.selectQuestionList(id);
         QuestionDTO questionDTO = null;
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : questions) {
             questionDTO = new QuestionDTO();
-            User user = userMapper.selectByCreateUserId(question.getUserId());
+            User user = userDao.selectByCreateUserId(question.getUserId());
             BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTO.setGmtCreate(Long.valueOf(question.getGmtCreate()));
@@ -98,11 +103,11 @@ public class QuestionServiceImpl implements IQuestionService {
     @Override
     public QuestionDTO selectById(String id) {
         QuestionDTO questionDTO=new QuestionDTO();
-        Question question = questionMapper.selectById(id);
+        Question question = questionDao.selectById(id);
         if (question==null){
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FIND);
         }
-        User user = userMapper.selectByCreateUserId(question.getUserId());
+        User user = userDao.selectByCreateUserId(question.getUserId());
         BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(user);
         questionDTO.setGmtCreate(Long.valueOf(question.getGmtCreate()));
@@ -111,18 +116,18 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public void insertQuestion(Question question) {
-        questionMapper.insertQuestion(question);
+        questionDao.insert(question);
     }
 
     @Override
     public void updateQuestion(Question question) {
-        questionMapper.updateQuestion(question);
+        questionDao.update(question);
     }
 
     @Override
     public void addView(String id) {
-        Question question = questionMapper.selectById(id);
+        Question question = questionDao.selectById(id);
         question.setViewCount(question.getViewCount()+1);
-        questionMapper.addView(question);
+        questionDao.addView(question);
     }
 }

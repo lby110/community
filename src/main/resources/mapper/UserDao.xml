@@ -101,7 +101,7 @@
     <select id="selectAllUser" resultType="com.community.community.model.User">
         select * from user
     </select>
-    <select id="selectByAccountId" resultMap="String">
+    <select id="selectByAccountId" resultType="String">
         select account_id from user where account_id=${accountId} limit 1
     </select>
     <update id="updateUserByAccountId">

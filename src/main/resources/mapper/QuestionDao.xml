@@ -100,5 +100,23 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="count" resultType="int">
+        select count(1) from question
+    </select>
+    <select id="selectAllQuestion" resultType="com.community.community.model.Question">
+        select * from question
+    </select>
+    <select id="selectQuestionList" resultType="com.community.community.model.Question">
+        select * from question where id=#{id}
+    </select>
+    <select id="countByUserId" resultType="int">
+        select count(1) from question where id=#{id}
+    </select>
+    <select id="selectById" resultType="com.community.community.model.Question">
+        select * from question where id=#{id}
+    </select>
+    <update id="addView">
+        update question set like_count=#{question.likeCount}
+    </update>
 </mapper>
 
