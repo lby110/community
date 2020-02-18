@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.community.community.dao.CommentDao">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.community.community.model.Comment">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="like_count" property="likeCount"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `user_id`,
+        `parent_id`,
+        `like_count`,
+        `gmt_create`,
+        `gmt_modified`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO comment (
+            `id`,
+            `user_id`,
+            `parent_id`,
+            `like_count`,
+            `gmt_create`,
+            `gmt_modified`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.userId},
+            #{pojo.parentId},
+            #{pojo.likeCount},
+            #{pojo.gmtCreate},
+            #{pojo.gmtModified}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.userId!=null"> `user_id`,</if>
+            <if test="pojo.parentId!=null"> `parent_id`,</if>
+            <if test="pojo.likeCount!=null"> `like_count`,</if>
+            <if test="pojo.gmtCreate!=null"> `gmt_create`,</if>
+            <if test="pojo.gmtModified!=null"> `gmt_modified`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.userId!=null">#{pojo.userId},</if>
+            <if test="pojo.parentId!=null">#{pojo.parentId},</if>
+            <if test="pojo.likeCount!=null">#{pojo.likeCount},</if>
+            <if test="pojo.gmtCreate!=null">#{pojo.gmtCreate},</if>
+            <if test="pojo.gmtModified!=null">#{pojo.gmtModified},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO comment (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.userId},
+            #{pojo.parentId},
+            #{pojo.likeCount},
+            #{pojo.gmtCreate},
+            #{pojo.gmtModified}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE comment
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.userId != null"> `user_id` = #{pojo.userId}, </if>
+            <if test="pojo.parentId != null"> `parent_id` = #{pojo.parentId}, </if>
+            <if test="pojo.likeCount != null"> `like_count` = #{pojo.likeCount}, </if>
+            <if test="pojo.gmtCreate != null"> `gmt_create` = #{pojo.gmtCreate}, </if>
+            <if test="pojo.gmtModified != null"> `gmt_modified` = #{pojo.gmtModified} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

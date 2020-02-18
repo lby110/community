@@ -3,8 +3,9 @@ package com.community.community.controller;
 import com.community.community.Mapper.UserMapper;
 import com.community.community.dto.AccessTokenDTO;
 import com.community.community.dto.GitHubUser;
-import com.community.community.model.sql.User;
+import com.community.community.model.User;
 import com.community.community.provider.GithubProvider;
+import com.community.community.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class AuthorizeController {
     private String redirectUri;
 
     @Autowired
-    private UserMapper userMapper;
+    private IUserService iUserService;
 
     @GetMapping("/callback")
     public String callBack(@RequestParam("code") String code,
@@ -45,10 +46,10 @@ public class AuthorizeController {
         if (userInfo != null) {
             User user = new User();
             String token = UUID.randomUUID().toString();
-            if (userMapper.selectByAccountId(userInfo.getId())!=null) {
+            if (iUserService.selectByAccountId(userInfo.getId())!=null) {
                 user.setToken(token);
                 user.setAccountId(userInfo.getId().toString());
-                userMapper.updateUserByAccountId(user);
+                iUserService.updateUserByAccountId(user);
                 response.addCookie(new Cookie("token", token));
                 return "redirect:/";
             } else {
@@ -59,7 +60,7 @@ public class AuthorizeController {
                 user.setGmtModifted(user.getGmtCreate());
                 user.setAccountId(userInfo.getId().toString());
                 //登录成功，将信息存入到数据库和写cookie和session
-                userMapper.insertUser(user);
+                iUserService.insertUser(user);
                 response.addCookie(new Cookie("token", token));
                 return "redirect:/";
             }

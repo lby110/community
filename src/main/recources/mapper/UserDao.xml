@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.community.community.dao.UserDao">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.community.community.model.User">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="token" property="token"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modifted" property="gmtModifted"/>
+        <result column="account_id" property="accountId"/>
+        <result column="avatar_url" property="avatarUrl"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `name`,
+        `token`,
+        `gmt_create`,
+        `gmt_modifted`,
+        `account_id`,
+        `avatar_url`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO user (
+            `name`,
+            `token`,
+            `gmt_create`,
+            `gmt_modifted`,
+            `account_id`,
+            `avatar_url`
+        ) VALUES (
+            #{pojo.name},
+            #{pojo.token},
+            #{pojo.gmtCreate},
+            #{pojo.gmtModifted},
+            #{pojo.accountId},
+            #{pojo.avatarUrl}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">`id`,</if>
+            <if test="pojo.name!=null">`name`,</if>
+            <if test="pojo.token!=null">`token`,</if>
+            <if test="pojo.gmtCreate!=null">`gmt_create`,</if>
+            <if test="pojo.gmtModifted!=null">`gmt_modifted`,</if>
+            <if test="pojo.accountId!=null">`account_id`,</if>
+            <if test="pojo.avatarUrl!=null">`avatar_url`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.token!=null">#{pojo.token},</if>
+            <if test="pojo.gmtCreate!=null">#{pojo.gmtCreate},</if>
+            <if test="pojo.gmtModifted!=null">#{pojo.gmtModifted},</if>
+            <if test="pojo.accountId!=null">#{pojo.accountId},</if>
+            <if test="pojo.avatarUrl!=null">#{pojo.avatarUrl},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO user (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.token},
+            #{pojo.gmtCreate},
+            #{pojo.gmtModifted},
+            #{pojo.accountId},
+            #{pojo.avatarUrl}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE user
+        <set>
+            <if test="pojo.id != null">`id` = #{pojo.id},</if>
+            <if test="pojo.name != null">`name` = #{pojo.name},</if>
+            <if test="pojo.token != null">`token` = #{pojo.token},</if>
+            <if test="pojo.gmtCreate != null">`gmt_create` = #{pojo.gmtCreate},</if>
+            <if test="pojo.gmtModifted != null">`gmt_modifted` = #{pojo.gmtModifted},</if>
+            <if test="pojo.accountId != null">`account_id` = #{pojo.accountId},</if>
+            <if test="pojo.avatarUrl != null">`avatar_url` = #{pojo.avatarUrl}</if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+    <select id="selectAllUser" resultType="com.community.community.model.User">
+        select * from user
+    </select>
+    <select id="selectByAccountId" resultMap="String">
+        select account_id from user where account_id=${accountId} limit 1
+    </select>
+    <update id="updateUserByAccountId">
+        update user set token=#{token} where account_id=#{user.accountId}
+    </update>
+    <select id="selectByToken" resultType="com.community.community.model.User">
+        select * from user where token=#{token}
+    </select>
+    <select id="selectByCreateUserId" resultType="com.community.community.model.User">
+        select * from user where id=#{createUser}
+    </select>
+</mapper>
+

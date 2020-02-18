@@ -1,8 +1,8 @@
 package com.community.community.controller;
 
 import com.community.community.dto.PaginationDTO;
-import com.community.community.model.sql.User;
-import com.community.community.service.QuestionService;
+import com.community.community.model.User;
+import com.community.community.service.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class profileController {
 
     @Autowired
-    private QuestionService questionService;
+    private IQuestionService iQuestionService;
     @GetMapping("/profile/{url}")
     public String profile(@PathVariable("url")String url,
                           HttpServletRequest request,
@@ -29,7 +29,7 @@ public class profileController {
         }
         if ("questions".equals(url)){
             //通过用户id查询用户自己的问题列表
-            PaginationDTO paginationDTO = questionService.selectByUserId(user.getId(),page, pageSize);
+            PaginationDTO paginationDTO = iQuestionService.selectByUserId(user.getId(),page, pageSize);
             model.addAttribute("headName","我的提问");
             model.addAttribute("section","questions");
             model.addAttribute("pageList",paginationDTO);
@@ -37,7 +37,7 @@ public class profileController {
         if ("repies".equals(url)){
             model.addAttribute("section","repies");
             model.addAttribute("headName","最新回复");
-            PaginationDTO paginationDTO = questionService.selectByUserId(user.getId(),page, pageSize);
+            PaginationDTO paginationDTO = iQuestionService.selectByUserId(user.getId(),page, pageSize);
             model.addAttribute("pageList",paginationDTO);
         }
         return "profile";

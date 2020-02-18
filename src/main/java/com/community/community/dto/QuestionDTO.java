@@ -1,6 +1,6 @@
 package com.community.community.dto;
 
-import com.community.community.model.sql.User;
+import com.community.community.model.User;
 import lombok.Data;
 
 @Data
@@ -33,12 +33,12 @@ public class QuestionDTO {
     /**
      * 浏览人数
      */
-    private String viewCount;
+    private int viewCount;
 
     /**
      * 点赞人数
      */
-    private String likeCount;
+    private int likeCount;
 
     /**
      * 新增时间

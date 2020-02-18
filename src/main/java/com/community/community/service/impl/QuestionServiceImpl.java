@@ -6,9 +6,9 @@ import com.community.community.dto.PaginationDTO;
 import com.community.community.dto.QuestionDTO;
 import com.community.community.exception.CustomizeErrorCode;
 import com.community.community.exception.CustomizeException;
-import com.community.community.model.sql.Question;
-import com.community.community.model.sql.User;
-import com.community.community.service.QuestionService;
+import com.community.community.model.Question;
+import com.community.community.model.User;
+import com.community.community.service.IQuestionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuestionServiceImpl implements QuestionService {
+public class QuestionServiceImpl implements IQuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -117,5 +117,12 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void updateQuestion(Question question) {
         questionMapper.updateQuestion(question);
+    }
+
+    @Override
+    public void addView(String id) {
+        Question question = questionMapper.selectById(id);
+        question.setViewCount(question.getViewCount()+1);
+        questionMapper.addView(question);
     }
 }

@@ -1,7 +1,7 @@
 package com.community.community.interceptor;
 
-import com.community.community.Mapper.UserMapper;
-import com.community.community.model.sql.User;
+import com.community.community.model.User;
+import com.community.community.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,15 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
-    private UserMapper userMapper;
+    private IUserService iUserService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
-        User user=null;
+        User user = null;
         if (cookies != null && cookies.length != 0) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
-                    user= userMapper.selectByToken(cookie.getValue());
+                    user = iUserService.selectByToken(cookie.getValue());
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
                     }

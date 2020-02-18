@@ -1,4 +1,4 @@
-package com.community.community.model.sql;
+package com.community.community.model;
 
 import lombok.Data;
 
@@ -36,12 +36,12 @@ public class Question {
     /**
      * 浏览人数
      */
-    private String viewCount;
+    private int viewCount;
 
     /**
      * 点赞人数
      */
-    private String likeCount;
+    private int likeCount;
 
     /**
      * 新增时间

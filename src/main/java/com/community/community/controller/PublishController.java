@@ -1,9 +1,9 @@
 package com.community.community.controller;
 
 import com.community.community.dto.QuestionDTO;
-import com.community.community.model.sql.Question;
-import com.community.community.model.sql.User;
-import com.community.community.service.QuestionService;
+import com.community.community.model.Question;
+import com.community.community.model.User;
+import com.community.community.service.IQuestionService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
 
     @Autowired
-    private QuestionService questionService;
+    private IQuestionService iQuestionService;
 
     @GetMapping("/publish")
     public String publish() {
@@ -63,10 +63,10 @@ public class PublishController {
         question.setGmtCreate(String.valueOf(System.currentTimeMillis()));
         question.setGmtModified(String.valueOf(System.currentTimeMillis()));
         if ("".equals(id)) {
-            questionService.insertQuestion(question);
+            iQuestionService.insertQuestion(question);
         }else {
             question.setId(Long.valueOf(id));
-            questionService.updateQuestion(question);
+            iQuestionService.updateQuestion(question);
         }
         return "redirect:/";
     }
@@ -74,7 +74,7 @@ public class PublishController {
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable("id") String id,
                        Model model) {
-        QuestionDTO questionDTO = questionService.selectById(id);
+        QuestionDTO questionDTO = iQuestionService.selectById(id);
         model.addAttribute("title", questionDTO.getTitle());
         model.addAttribute("description", questionDTO.getDescription());
         model.addAttribute("tag", questionDTO.getTag());
