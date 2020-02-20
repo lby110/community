@@ -12,10 +12,10 @@ public enum CommentTypeEnum {
     public static boolean isExist(int type) {
         for (CommentTypeEnum commentTypeEnum : CommentTypeEnum.values()) {
             if (commentTypeEnum.getType() == type) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public Integer getType() {

@@ -113,5 +113,8 @@
     <select id="selectByCreateUserId" resultType="com.community.community.model.User">
         select * from user where id=#{createUser}
     </select>
+    <select id="selectByUserIds" resultType="com.community.community.model.User">
+        select * from user where id=#{userId}
+    </select>
 </mapper>
 

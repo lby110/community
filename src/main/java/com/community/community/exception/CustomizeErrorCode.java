@@ -7,7 +7,9 @@ public enum  CustomizeErrorCode implements ICustomizeErrorCode{
     SYSTEM_ERROR(20004,"服务器异常"),
     TYPE_PARAM(20005,"评论类型错误或者不存在"),
     COMMENT_NOT_FIND(20006,"评论不存在"),
-    QUESTIONS_NOT_FIND(20007,"回复问题不存在")
+    QUESTIONS_NOT_FIND(20007,"回复问题不存在"),
+    COMMENT_NOT_EXIST(20008,"评论不存在或已被删除"),
+    NOT_FIND_CONTEXT(20009,"评论内容不能为空")
     ;
 
     private Integer code;

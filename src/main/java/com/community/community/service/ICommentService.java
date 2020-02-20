@@ -1,5 +1,6 @@
 package com.community.community.service;
 
+import com.community.community.dto.ReCommentDTO;
 import com.community.community.model.Comment;
 
 import java.util.List;
@@ -15,5 +16,16 @@ public interface ICommentService {
 
     public int update(Comment pojo);
 
+    /**
+     * 新增评论
+     * @param comment
+     */
     void insertComment(Comment comment);
+
+    /**
+     * 获取问题评论列表
+     * @param id
+     * @return
+     */
+    List<ReCommentDTO> getCommentList(Long id);
 }

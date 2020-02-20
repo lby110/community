@@ -30,7 +30,8 @@
             `like_count`,
             `gmt_create`,
             `gmt_modified`,
-            `context`
+            `context`,
+            `type`
         ) VALUES (
             #{pojo.id},
             #{pojo.userId},
@@ -38,7 +39,8 @@
             #{pojo.likeCount},
             #{pojo.gmtCreate},
             #{pojo.gmtModified},
-            #{pojo.context}
+            #{pojo.context},
+            #{pojo.type}
         )
     </insert>
 
@@ -96,6 +98,9 @@
     </update>
     <select id="selectByParentId" resultType="com.community.community.model.Comment">
         select * from comment by parent_id=#{parentId}
+    </select>
+    <select id="selectByQId" resultType="com.community.community.model.Comment">
+        select  * from comment where parent_id=#{id} and type=#{type}
     </select>
 </mapper>
 

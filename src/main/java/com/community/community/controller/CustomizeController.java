@@ -1,7 +1,7 @@
 package com.community.community.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.community.community.dao.ResultDTO;
+import com.community.community.dto.ResultDTO;
 import com.community.community.exception.CustomizeErrorCode;
 import com.community.community.exception.CustomizeException;
 import org.springframework.ui.Model;

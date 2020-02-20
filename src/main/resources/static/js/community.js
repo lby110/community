@@ -6,7 +6,7 @@ function post() {
     type: "post",
         contentType:"application/json",
     url: "/post",
-    data: JSON.stringify({"parentId":question_id,"context":context,type:"1"}),
+    data: JSON.stringify({"parentId":question_id,"context":context,type:1}),
     success: function(res){
         if (res.code==200){
             $("#context").hidden;

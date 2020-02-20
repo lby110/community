@@ -54,4 +54,9 @@ public class QuestionDTO {
      * 用户信息
      */
     private User user;
+
+    /**
+     * 评论数
+     */
+    private Long commentCount;
 }

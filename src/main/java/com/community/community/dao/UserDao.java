@@ -25,4 +25,6 @@ public interface UserDao {
     User selectByToken(@Param("token") String token);
 
     User selectByCreateUserId(@Param("createUser") String createUser);
+
+    User selectByUserIds(@Param("userId") Long userId);
 }

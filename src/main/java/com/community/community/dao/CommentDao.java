@@ -17,4 +17,6 @@ public interface CommentDao {
     int update(@Param("pojo") Comment pojo);
 
     Comment selectByParentId(Long parentId);
+
+    List<Comment> selectByQId(@Param("id") Long id,@Param("type") int type);
 }

@@ -1,4 +1,4 @@
-package com.community.community.dao;
+package com.community.community.dto;
 
 import com.community.community.exception.CustomizeException;
 import com.community.community.exception.ICustomizeErrorCode;
