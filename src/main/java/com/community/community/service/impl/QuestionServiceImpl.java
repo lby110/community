@@ -43,8 +43,7 @@ public class QuestionServiceImpl implements IQuestionService {
         if (page > paginationDTO.getTotalPage()) {
             page = paginationDTO.getTotalPage();
         }
-        int offSet = pageSize * (page - 1);
-        PageHelper.startPage(offSet,pageSize);
+        PageHelper.startPage(page,pageSize);
         List<Question> questions = questionDao.selectAllQuestion();
         QuestionDTO questionDTO = null;
         List<QuestionDTO> questionDTOS = new ArrayList<>();
@@ -77,8 +76,7 @@ public class QuestionServiceImpl implements IQuestionService {
         if (page > paginationDTO.getTotalPage()) {
             page = paginationDTO.getTotalPage();
         }
-        int offSet = pageSize * (page - 1);
-        PageHelper.startPage(offSet,pageSize);
+        PageHelper.startPage(page,pageSize);
         List<Question> questions = questionDao.selectQuestionList(id);
         QuestionDTO questionDTO = null;
         List<QuestionDTO> questionDTOS = new ArrayList<>();
@@ -103,7 +101,7 @@ public class QuestionServiceImpl implements IQuestionService {
     @Override
     public QuestionDTO selectById(String id) {
         QuestionDTO questionDTO=new QuestionDTO();
-        Question question = questionDao.selectById(id);
+        Question question = questionDao.selectById(Long.valueOf(id));
         if (question==null){
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FIND);
         }
@@ -126,8 +124,13 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public void addView(String id) {
-        Question question = questionDao.selectById(id);
+        Question question = questionDao.selectById(Long.valueOf(id));
         question.setViewCount(question.getViewCount()+1);
         questionDao.addView(question);
+    }
+
+    @Override
+    public void insertCommentCount(Question question) {
+        questionDao.insertCommentCount(question);
     }
 }

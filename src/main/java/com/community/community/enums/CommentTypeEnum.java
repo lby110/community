@@ -1,4 +1,24 @@
 package com.community.community.enums;
 
-public class CommentTypeEnum {
+public enum CommentTypeEnum {
+    QUESTION(1),//回复问题
+    COMMENT(2);//回复评论
+    private Integer type;
+
+    CommentTypeEnum(Integer type) {
+        this.type = type;
+    }
+
+    public static boolean isExist(int type) {
+        for (CommentTypeEnum commentTypeEnum : CommentTypeEnum.values()) {
+            if (commentTypeEnum.getType() == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Integer getType() {
+        return type;
+    }
 }

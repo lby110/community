@@ -31,7 +31,7 @@ public class Comment {
     /**
      * 点赞数
      */
-    private String likeCount;
+    private Long likeCount;
 
     /**
      * 创建时间
@@ -42,5 +42,10 @@ public class Comment {
      * 修改时间
      */
     private Long gmtModified;
+
+    /**
+     * 评论内容
+     */
+    private String context;
 
 }

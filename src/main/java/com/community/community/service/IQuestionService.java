@@ -16,6 +16,8 @@ public interface IQuestionService {
     void updateQuestion(Question question);
 
     void addView(String id);
+
+    void insertCommentCount(Question question);
 }
 
 

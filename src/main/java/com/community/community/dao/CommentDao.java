@@ -15,4 +15,6 @@ public interface CommentDao {
     int insertList(@Param("pojos") List<Comment> pojo);
 
     int update(@Param("pojo") Comment pojo);
+
+    Comment selectByParentId(Long parentId);
 }

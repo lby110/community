@@ -14,4 +14,6 @@ public interface ICommentService {
     public int insertList(List<Comment> pojos);
 
     public int update(Comment pojo);
+
+    void insertComment(Comment comment);
 }

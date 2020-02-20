@@ -53,5 +53,10 @@ public class Question {
      */
     private String gmtModified;
 
+    /**
+     * 评论数
+     */
+    private Long commentCount;
+
 
 }

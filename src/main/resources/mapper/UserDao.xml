@@ -105,7 +105,7 @@
         select account_id from user where account_id=${accountId} limit 1
     </select>
     <update id="updateUserByAccountId">
-        update user set token=#{token} where account_id=#{user.accountId}
+        update user set token=#{user.token} where account_id=#{user.accountId}
     </update>
     <select id="selectByToken" resultType="com.community.community.model.User">
         select * from user where token=#{token}

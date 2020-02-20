@@ -13,7 +13,7 @@ import com.community.community.dao.UserDao;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    @Autowired
+    @Resource
     private UserDao userDao;
 
     public int insert(User pojo) {

@@ -29,14 +29,16 @@
             `parent_id`,
             `like_count`,
             `gmt_create`,
-            `gmt_modified`
+            `gmt_modified`,
+            `context`
         ) VALUES (
             #{pojo.id},
             #{pojo.userId},
             #{pojo.parentId},
             #{pojo.likeCount},
             #{pojo.gmtCreate},
-            #{pojo.gmtModified}
+            #{pojo.gmtModified},
+            #{pojo.context}
         )
     </insert>
 
@@ -92,5 +94,8 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="selectByParentId" resultType="com.community.community.model.Comment">
+        select * from comment by parent_id=#{parentId}
+    </select>
 </mapper>
 

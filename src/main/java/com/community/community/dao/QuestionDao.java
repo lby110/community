@@ -24,7 +24,9 @@ public interface QuestionDao {
 
     List<Question> selectQuestionList(@Param("id") Long id);
 
-    Question selectById(@Param("id") String id);
+    Question selectById(@Param("id") Long id);
 
     void addView(@Param("question") Question question);
+
+    void insertCommentCount(@Param("question") Question question);
 }

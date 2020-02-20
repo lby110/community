@@ -10,6 +10,7 @@
         <result column="user_id" property="userId"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modified" property="gmtModified"/>
+        <result column="context" property="context"/>
     </resultMap>
 
     <!--auto generated Code-->
@@ -107,16 +108,19 @@
         select * from question
     </select>
     <select id="selectQuestionList" resultType="com.community.community.model.Question">
-        select * from question where id=#{id}
+        select * from question where user_id=#{id}
     </select>
     <select id="countByUserId" resultType="int">
-        select count(1) from question where id=#{id}
+        select count(1) from question where user_id=#{id}
     </select>
     <select id="selectById" resultType="com.community.community.model.Question">
         select * from question where id=#{id}
     </select>
     <update id="addView">
         update question set like_count=#{question.likeCount}
+    </update>
+    <update id="insertCommentCount">
+        update question set comment_count=#{question.commentCount} where id=#{question.id}
     </update>
 </mapper>
 
