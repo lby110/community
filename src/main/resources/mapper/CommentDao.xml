@@ -100,7 +100,7 @@
         select * from comment by parent_id=#{parentId}
     </select>
     <select id="selectByQId" resultType="com.community.community.model.Comment">
-        select  * from comment where parent_id=#{id} and type=#{type}
+        select  * from comment where parent_id=#{id} and type=#{type} order by gmt_create desc
     </select>
 </mapper>
 

@@ -2,6 +2,7 @@ package com.community.community.controller;
 
 import com.community.community.dto.QuestionDTO;
 import com.community.community.dto.ReCommentDTO;
+import com.community.community.enums.CommentTypeEnum;
 import com.community.community.service.ICommentService;
 import com.community.community.service.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class QuestionController {
     public String details(@PathVariable("id") String id,
                           Model model) {
         QuestionDTO questionDTO = iQuestionService.selectById(id);
-        List<ReCommentDTO> commentDTOList = iCommentService.getCommentList(Long.valueOf(id));
+        List<ReCommentDTO> commentDTOList = iCommentService.getCommentList(Long.valueOf(id), CommentTypeEnum.QUESTION);
         if (commentDTOList != null) {
             model.addAttribute("comment", commentDTOList);
         }

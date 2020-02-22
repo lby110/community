@@ -1,6 +1,7 @@
 package com.community.community.service;
 
 import com.community.community.dto.ReCommentDTO;
+import com.community.community.enums.CommentTypeEnum;
 import com.community.community.model.Comment;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public interface ICommentService {
     /**
      * 获取问题评论列表
      * @param id
+     * @param typeEnum
      * @return
      */
-    List<ReCommentDTO> getCommentList(Long id);
+    List<ReCommentDTO> getCommentList(Long id, CommentTypeEnum typeEnum);
 }

@@ -93,11 +93,12 @@ public class CommentServiceImpl implements ICommentService {
      * 获取问题评论列表
      *
      * @param id
+     * @param typeEnum
      * @return
      */
     @Override
-    public List<ReCommentDTO> getCommentList(Long id) {
-        List<Comment> comments = commentDao.selectByQId(id, CommentTypeEnum.QUESTION.getType());
+    public List<ReCommentDTO> getCommentList(Long id, CommentTypeEnum typeEnum) {
+        List<Comment> comments = commentDao.selectByQId(id, typeEnum.getType());
         Set<Long> collect = comments.stream().map(comment -> comment.getUserId()).collect(Collectors.toSet());
         List<Long> userIds = new ArrayList<>();
         userIds.addAll(collect);

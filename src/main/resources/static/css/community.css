@@ -25,8 +25,18 @@
 .nikeName{
     padding-top: 10px;
 }
-.comment{
+.menu .comment{
     font-size: 17px;
     padding-left: 10px;
     padding-top: 10px;
+    cursor: pointer;
+}
+.menu{
+    color: #999999;
+}
+.menu .comment:hover{
+    color: #499ef3;
+}
+.menu .active{
+    color: #499ef3;
 }
