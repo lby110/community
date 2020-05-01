@@ -1,5 +1,8 @@
 package com.community.community.exception;
 
+/**
+ * @author luboyang
+ */
 public class CustomizeException extends RuntimeException {
     private String message;
     private Integer code;

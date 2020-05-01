@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -109,13 +106,13 @@ public class CommentServiceImpl implements ICommentService {
         }
 
         Map<Long, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
+
         List<ReCommentDTO> reCommentDTOS = comments.stream().map(comment -> {
             ReCommentDTO reCommentDTO = new ReCommentDTO();
             BeanUtils.copyProperties(comment, reCommentDTO);
             reCommentDTO.setUser(userMap.get(comment.getUserId()));
             return reCommentDTO;
         }).collect(Collectors.toList());
-
         return reCommentDTOS;
     }
 }

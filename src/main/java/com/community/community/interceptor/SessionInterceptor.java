@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class SessionInterceptor implements HandlerInterceptor {
+
     @Autowired
     private IUserService iUserService;
 
@@ -43,4 +44,5 @@ public class SessionInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
     }
+
 }

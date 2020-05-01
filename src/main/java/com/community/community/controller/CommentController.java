@@ -1,22 +1,18 @@
 package com.community.community.controller;
 
-import com.community.community.dto.ReCommentDTO;
-import com.community.community.dto.ResultDTO;
 import com.community.community.dto.CommentDTO;
+import com.community.community.dto.ResultDTO;
 import com.community.community.exception.CustomizeErrorCode;
 import com.community.community.model.Comment;
 import com.community.community.model.User;
 import com.community.community.service.ICommentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class CommentController {
@@ -55,5 +51,6 @@ public class CommentController {
         iCommentService.insertComment(comment);
         return ResultDTO.okOf();
     }
+
 
 }
